@@ -11,13 +11,11 @@ namespace NQueens
     {
         static void Main(string[] args)
         {
-            SolveNQueens(8);
+            SolveNQueens(4);
         }
 
         static void SolveNQueens(int N)
         {
-            int[] columns = new int[N];
-
             List<int[]> output = new List<int[]>();
             bool[,] board = new bool[N, N];
 
@@ -41,18 +39,19 @@ namespace NQueens
 
         private static void SolveNQueens(bool[,] board, int column, List<int[]> output)
         {
-            int n = board.GetLength(0);
+            int n = board.GetLength(1);
 
             if (column == n)
             {
                 int[] result = new int[n];
 
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < board.GetLength(0); i++)
                 {
-                    for (int j = 0; j < n; j++)
+                    for (int j = 0; j < board.GetLength(1); j++)
                     {
                         if (board[i, j])
                         {
+                            // i is the row and j is the column
                             result[i] = j;
                         }
                     }
@@ -81,18 +80,18 @@ namespace NQueens
             int n = board.GetLength(0);
 
             // check row 
-            for (int i = 0; i < n; i++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
-                if (board[row, i])
+                if (board[row, j])
                 {
                     return false;
                 }
             }
 
             // check column
-            for (int j = 0; j < n; j++)
+            for (int i = 0; i < board.GetLength(1); i++)
             {
-                if (board[j, column])
+                if (board[i, column])
                 {
                     return false;
                 }
@@ -107,7 +106,7 @@ namespace NQueens
                 }
             }
 
-            for (int i = row, j = column; i < n && j < n; i++, j++)
+            for (int i = row, j = column; i < board.GetLength(0) && j < board.GetLength(1); i++, j++)
             {
                 if (board[i, j])
                 {
@@ -115,7 +114,7 @@ namespace NQueens
                 }
             }
 
-            for (int i = row, j = column; i < n && j >= 0; i++, j--)
+            for (int i = row, j = column; i < board.GetLength(0) && j >= 0; i++, j--)
             {
                 if (board[i, j])
                 {
@@ -123,7 +122,7 @@ namespace NQueens
                 }
             }
 
-            for (int i = row, j = column; i >= 0 && j < n; i--, j++)
+            for (int i = row, j = column; i >= 0 && j < board.GetLength(1); i--, j++)
             {
                 if (board[i, j])
                 {
